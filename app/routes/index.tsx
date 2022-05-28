@@ -8,9 +8,10 @@ export const loader: LoaderFunction = async ({ context }) => {
 };
 
 export default function Index() {
-  const count = useLoaderData();
+  const count: number = useLoaderData();
+
   return (
-    <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
+    <div className="font-sans">
       <h1>Welcome to Remix</h1>
       <h2>You're vistior number: {count}!</h2>
       <ul>
