@@ -22,3 +22,7 @@ main = "./worker.mjs"
 
 [durable_objects]
 bindings = [{ name = "COUNTER", class_name = "Counter" }]
+
+[[migrations]]
+tag = "v1"
+new_classes = ["Counter"]
