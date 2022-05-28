@@ -1,7 +1,7 @@
 const { build } = require('esbuild');
 
 build({
-  entryPoints: ['./worker/worker.ts'],
+  entryPoints: ['./worker/index.ts'],
   bundle: true,
   sourcemap: process.env.NODE_ENV !== 'production',
   format: 'esm',
