@@ -1,6 +1,6 @@
-import { fetch } from "./fetch";
+import { fetch } from './fetch';
 
 export default {
   fetch,
 };
-export { Counter } from "./durable-objects/Counter";
+export { Counter } from './durable-objects/Counter';

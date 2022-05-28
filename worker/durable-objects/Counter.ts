@@ -1,4 +1,4 @@
-import { json } from "@remix-run/server-runtime";
+import { json } from '@remix-run/server-runtime';
 
 interface Env {}
 
@@ -10,7 +10,7 @@ export class Counter {
 
   async fetch(request: Request) {
     switch (new URL(request.url).pathname) {
-      case "/increment":
+      case '/increment':
         this.increment();
         break;
     }
@@ -19,7 +19,7 @@ export class Counter {
   }
 
   async getCount() {
-    let count: number | undefined = await this.state.storage.get("count");
+    let count: number | undefined = await this.state.storage.get('count');
     if (!count) {
       count = 0;
       this.setCount(count);
@@ -28,7 +28,7 @@ export class Counter {
   }
 
   setCount(val: number) {
-    return this.state.storage.put("count", val);
+    return this.state.storage.put('count', val);
   }
 
   async increment() {

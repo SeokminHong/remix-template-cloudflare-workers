@@ -2,7 +2,7 @@
 /// <reference types="@remix-run/cloudflare/globals" />
 /// <reference types="@cloudflare/workers-types" />
 
-import type { AppData } from "@remix-run/server-runtime";
+import type { AppData } from '@remix-run/server-runtime';
 
 export {};
 

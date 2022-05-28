@@ -1,13 +1,13 @@
-import { createRequestHandler } from "@remix-run/server-runtime";
-import type { ServerBuild } from "@remix-run/cloudflare";
+import { createRequestHandler } from '@remix-run/server-runtime';
+import type { ServerBuild } from '@remix-run/cloudflare';
 import {
   getAssetFromKV,
   MethodNotAllowedError,
   NotFoundError,
-} from "@cloudflare/kv-asset-handler";
-import * as build from "../build";
+} from '@cloudflare/kv-asset-handler';
+import * as build from '../build';
 // @ts-ignore
-import assetJson from "__STATIC_CONTENT_MANIFEST";
+import assetJson from '__STATIC_CONTENT_MANIFEST';
 
 const ASSET_MANIFEST = JSON.parse(assetJson);
 
@@ -48,7 +48,7 @@ async function assetHandler(
       ASSET_NAMESPACE: env.__STATIC_CONTENT,
       ASSET_MANIFEST,
       cacheControl: {
-        bypassCache: process.env.NODE_ENV === "development",
+        bypassCache: process.env.NODE_ENV === 'development',
       },
     };
 
