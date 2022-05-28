@@ -1,7 +1,18 @@
+import { useLoaderData } from "@remix-run/react";
+
+export const loader: LoaderFunction = async ({ context }) => {
+  const id = context.COUNTER.idFromName("home page count");
+  const pageCount = context.COUNTER.get(id);
+  const count = await pageCount.fetch("/increment");
+  return count.json();
+};
+
 export default function Index() {
+  const count = useLoaderData();
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
       <h1>Welcome to Remix</h1>
+      <h2>You're vistior number: {count}!</h2>
       <ul>
         <li>
           <a
