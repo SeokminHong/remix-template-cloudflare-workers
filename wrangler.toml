@@ -1,6 +1,7 @@
 name = "remix-cloudflare-workers"
 type = "javascript"
 compatibility_date = "2022-05-28"
+compatibility_flags = ["durable_object_fetch_allows_relative_url"]
 
 zone_id = ""
 account_id = ""
