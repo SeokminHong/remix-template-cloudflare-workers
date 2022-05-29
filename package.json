@@ -11,9 +11,8 @@
     "predev": "tailwindcss -i ./styles/app.css -o app/styles/app.css && remix build",
     "dev:css": "tailwindcss -w -i ./styles/app.css -o app/styles/app.css",
     "dev:remix": "remix watch",
-    "dev:worker": "miniflare --watch",
+    "dev:worker": "miniflare ./dist/worker.mjs --watch",
     "dev": "cross-env NODE_ENV=development npm run predev && run-p dev:*",
-    "start": "cross-env NODE_ENV=production miniflare ./build/index.js",
     "format": "prettier --write .",
     "clean": "rimraf .cache .mf build dist node_modules app/styles"
   },
