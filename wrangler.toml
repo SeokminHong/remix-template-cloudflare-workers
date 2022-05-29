@@ -1,24 +1,19 @@
 name = "remix-cloudflare-workers"
-type = "javascript"
 compatibility_date = "2022-05-28"
 compatibility_flags = ["durable_object_fetch_allows_relative_url"]
-
-zone_id = ""
-account_id = ""
-route = ""
+main = "./dist/worker.mjs"
 workers_dev = true
 
 [site]
 bucket = "./public"
-entry-point = "."
 
 [build]
 command = "npm run build:worker"
 watch_dir = "build/index.js"
 
 [build.upload]
+# This is a deprecated config, but nessessary for miniflare.
 format = "modules"
-main = "./worker.mjs"
 
 [durable_objects]
 bindings = [{ name = "COUNTER", class_name = "Counter" }]
