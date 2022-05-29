@@ -13,6 +13,7 @@
     "dev:remix": "remix watch",
     "dev:worker": "miniflare ./dist/worker.mjs --watch",
     "dev": "cross-env NODE_ENV=development npm run predev && run-p dev:*",
+    "start": "cross-env NODE_ENV=production miniflare ./dist/worker.mjs",
     "format": "prettier --write .",
     "clean": "rimraf .cache .mf build dist node_modules app/styles"
   },
