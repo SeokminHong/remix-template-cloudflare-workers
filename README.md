@@ -12,7 +12,7 @@ You will be running two processes during development:
 Both are started with one command:
 
 ```sh
-npm run dev
+pnpm dev
 ```
 
 Open up [http://127.0.0.1:8787](http://127.0.0.1:8787) and you should be ready to go!
@@ -20,8 +20,8 @@ Open up [http://127.0.0.1:8787](http://127.0.0.1:8787) and you should be ready t
 If you want to check the production build, you can stop the dev server and run following commands:
 
 ```sh
-npm run build
-npm start
+pnpm run build
+pnpm start
 ```
 
 Then refresh the same URL in your browser (no live reload for production builds).
@@ -35,5 +35,5 @@ If you don't already have an account, then [create a cloudflare account here](ht
 Once that's done, you should be able to deploy your app:
 
 ```sh
-npm run deploy
+pnpm run deploy
 ```
