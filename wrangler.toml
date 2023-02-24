@@ -21,3 +21,6 @@ bindings = [{ name = "COUNTER", class_name = "Counter" }]
 [[migrations]]
 tag = "v1"
 new_classes = ["Counter"]
+
+[miniflare]
+durable_objects_persist = true

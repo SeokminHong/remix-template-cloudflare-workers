@@ -1,7 +1,5 @@
 import { json } from '@remix-run/server-runtime';
 
-interface Env {}
-
 export class Counter {
   state: DurableObjectState;
   constructor(state: DurableObjectState, env: Env) {

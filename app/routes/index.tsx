@@ -1,8 +1,9 @@
 import { useLoaderData } from '@remix-run/react';
 
 export const loader: LoaderFunction = async ({ context }) => {
-  const id = context.COUNTER.idFromName('home page count');
-  const pageCount = context.COUNTER.get(id);
+  const { env } = context;
+  const id = env.COUNTER.idFromName('home page count');
+  const pageCount = env.COUNTER.get(id);
   const count = await pageCount.fetch('/increment');
   return count.json();
 };

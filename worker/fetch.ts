@@ -1,5 +1,5 @@
-import { createRequestHandler } from '@remix-run/server-runtime';
-import type { ServerBuild } from '@remix-run/cloudflare';
+import { createRequestHandler as createRemixRequestHandler } from '@remix-run/cloudflare';
+import type { AppLoadContext, ServerBuild } from '@remix-run/cloudflare';
 import {
   getAssetFromKV,
   MethodNotAllowedError,
@@ -11,21 +11,59 @@ import assetJson from '__STATIC_CONTENT_MANIFEST';
 
 const ASSET_MANIFEST = JSON.parse(assetJson);
 
-const requestHandler = createRequestHandler(
-  build as unknown as ServerBuild,
-  process.env.NODE_ENV
-);
-interface Context {
-  waitUntil: (a: Promise<any>) => void;
+export interface GetLoadContextFunction<Env = unknown> {
+  (request: Request, env: Env, ctx: ExecutionContext): AppLoadContext;
 }
-interface Env {
-  COUNTER: DurableObjectNamespace;
-  __STATIC_CONTENT: any;
+
+function createRequestHandler<Env>({
+  /**
+   * Remix build files
+   */
+  build,
+
+  /**
+   * Optional: Context to be available on `loader` or `action`, default to `undefined` if not defined
+   * @param request Request
+   * @param env Variables defined for the environment
+   * @param ctx Exectuion context, i.e. ctx.waitUntil() or ctx.passThroughOnException();
+   * @returns Context
+   */
+  getLoadContext,
+}: {
+  build: ServerBuild;
+  getLoadContext?: GetLoadContextFunction<Env>;
+}): ExportedHandlerFetchHandler<Env> {
+  let handleRequest = createRemixRequestHandler(build, process.env.NODE_ENV);
+
+  return (request: Request, env: Env, ctx: ExecutionContext) => {
+    let loadContext =
+      typeof getLoadContext === 'function'
+        ? getLoadContext(request, env, ctx)
+        : undefined;
+
+    return handleRequest(request, loadContext);
+  };
 }
-export async function fetch(request: Request, env: Env, ctx: Context) {
+
+const requestHandler = createRequestHandler<Env>({
+  build: build as unknown as ServerBuild,
+  getLoadContext(_request, env, ctx) {
+    return { env, ctx };
+  },
+});
+
+interface BuildEnv extends Env {
+  __STATIC_CONTENT: KVNamespace;
+}
+
+export async function fetch(
+  request: Request,
+  env: BuildEnv,
+  ctx: ExecutionContext
+) {
   try {
     let response = await assetHandler(request, env, ctx.waitUntil.bind(ctx));
-    if (!response) response = await requestHandler(request, env);
+    if (!response) response = await requestHandler(request, env, ctx);
     return response;
   } catch (e: any) {
     return new Response(e.message || e.toString(), {
@@ -36,7 +74,7 @@ export async function fetch(request: Request, env: Env, ctx: Context) {
 
 async function assetHandler(
   request: Request,
-  env: Env,
+  env: BuildEnv,
   waitUntil: (a: Promise<any>) => void
 ) {
   try {

@@ -4,11 +4,14 @@
 
 import type { AppData } from '@remix-run/server-runtime';
 
-export {};
-
 declare global {
-  export interface AppLoadContext {
+  export type Env = {
     COUNTER: DurableObjectNamespace;
+  };
+
+  export interface AppLoadContext {
+    env: Env;
+    ctx: ExecutionContext;
   }
 
   export interface DataFunctionArgs {
