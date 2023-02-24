@@ -37,3 +37,8 @@ Once that's done, you should be able to deploy your app:
 ```sh
 pnpm run deploy
 ```
+
+## References
+
+- https://github.com/DenaliDeMots/remix-cloudflare-es-modules
+- https://github.com/edmundhung/remix-worker-template
